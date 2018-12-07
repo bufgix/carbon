@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('home') }}" autocomplete="off">
+  {{ form.hidden_tag() }}
+
+  <fieldset class="form-group">
+    <legend calss="border-botton mb-4" align="center">Renklendir</legend>
+    <div class="form-group">
+      {{ form.content(class="form-control", placeholder=form.content.label.text, rows=10, style="font-size: 14px;", spellcheck="false") }}
+    </div>
+    <select name="lang" id="lang">
+      {% for lang in langs %}
+      <option value="{{ lang }}">{{ lang }}</option>
+      {% endfor %}
+    </select>
+
+  </fieldset>
+  <div class="form-group">
+    {{ form.submit() }}
+  </div>
+
+</form>
+
+{% if result %}
+<div class="container row">
+  <input type="submit" id="copy" name="submit" value="Kopyala" onclick="copyText();">
+  <a href="{{url_for('home')}}"><input type="submit" name="submit" value="Yeni"></a>
+</div>
+<textarea readonly name="data" rows="20" class="form-control" type="text" id="result" spellcheck="false">{{ result }}</textarea><br>
+
+
+<script>
+  function copyText() {
+    var copyText = document.getElementById("result");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Kopyalandı");
+  }
+</script>
+
+{% endif %}
+{% endblock %}
