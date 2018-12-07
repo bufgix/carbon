@@ -5,7 +5,10 @@
   {{ form.hidden_tag() }}
 
   <fieldset class="form-group">
-    <legend calss="border-botton mb-4" align="center">Renklendir</legend>
+    <div class="row d-flex justify-content-center" >
+      <img class="rounded d-block " height="60" width="60" src="{{ url_for('static', filename='term.png') }}">
+      <h3 calss="border-botton mb-4  vertical-center" style="margin-top: 10px;">Code Highlighter</h3>
+    </div>
     <div class="form-group">
       {{ form.content(class="form-control", placeholder=form.content.label.text, rows=10, style="font-size: 14px;", spellcheck="false", autocapitalize="off") }}
     </div>
