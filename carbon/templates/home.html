@@ -7,7 +7,7 @@
   <fieldset class="form-group">
     <legend calss="border-botton mb-4" align="center">Renklendir</legend>
     <div class="form-group">
-      {{ form.content(class="form-control", placeholder=form.content.label.text, rows=10, style="font-size: 14px;", spellcheck="false") }}
+      {{ form.content(class="form-control", placeholder=form.content.label.text, rows=10, style="font-size: 14px;", spellcheck="false", autocapitalize="off") }}
     </div>
     <select name="lang" id="lang">
       {% for lang in langs %}
