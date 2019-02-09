@@ -1,9 +1,11 @@
 from flask import render_template, request, jsonify, abort
+from flask_cors import cross_origin
 
 from carbon import app
 from carbon.forms import MainForm
 from carbon.utils import AVAILABLE_LANGS, convert
 
+from pygments.util import ClassNotFound
 import json
 
 @app.route('/', methods=['GET', 'POST'])
@@ -15,10 +17,14 @@ def home():
     return render_template('home.html', title='THT code highlighter', form=form, langs = AVAILABLE_LANGS)
 
 @app.route('/api', methods=['POST'])
+@cross_origin()
 def api():
     if not request.form:
         abort(400)
     else:
-        data = json.loads(next(request.form.keys()))
-        converted_data = convert(data.get('data'), data.get('lang'))
+        try:
+            converted_data = convert(request.form.get('data'), request.form.get('lang'))
+        except ClassNotFound as err:
+            return jsonify({'converted': "Dil Bulunamadı"})
+        
         return jsonify({'converted': converted_data})
